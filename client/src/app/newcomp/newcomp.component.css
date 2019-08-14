@@ -1,0 +1,17 @@
+/* Le data-binding des évenements */
+.maDivEvenement {
+    width: 100px;
+    height: 100px;
+}
+
+/* Les directives ngClass */
+.blueSquare {
+width: 100px;
+height: 100px;
+background-color: blue;
+}
+.redSquare {
+width: 100px;
+height: 100px;
+background-color: red;
+}

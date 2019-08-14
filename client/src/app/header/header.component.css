@@ -1,0 +1,32 @@
+
+.header {
+    background: rgb(211, 212, 212);
+    padding: 10px 0 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.header-logo {
+
+}
+
+nav {
+    margin-top: auto;
+}
+
+nav ul {
+    margin-bottom: 0.6rem;
+    display: flex;
+}
+nav ul li {
+    margin-left: 65px;
+    list-style: none;
+}
+
+a {
+    color: black;
+  }
+.header-logo  {
+    width: 129px;
+    margin-top: 10px;
+}

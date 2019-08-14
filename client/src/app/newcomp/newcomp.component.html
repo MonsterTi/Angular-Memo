@@ -1,0 +1,386 @@
+<h3>
+  Ceci est mon nouveau component qui est enfant de mon component app.component. J'ai rattaché sa balise app-newcomp
+  directement à la vue de app.component.html
+</h3>
+<hr>
+<h4>Résumé de mon cours Angular</h4>
+<ul>
+  <h4><li>NG CLI Generate</li></h4>
+<li>Les différentes generates : </li>
+<li>Component	: <code>ng g component my-new-component</code></li>
+<li>Directive :	<code>ng g directive my-new-directive</code></li>
+<li>Pipe :	<code>ng g pipe my-new-pipe</code></li>
+<li>Service :	<code>ng g service my-new-service</code></li>
+<li>Class :	<code>ng g class my-new-class</code></li>
+<li>Guard :	<code>ng g guard my-new-guard</code></li>
+<li>Interface :	<code>ng g interface my-new-interface</code></li>
+<li>Enum : <code>ng g enum my-new-enum</code></li>
+<li>Module : <code>ng g module my-new-module</code></li>
+</ul>
+<ul>
+  <li>Créer un nouveau projet Angular : ng new myproject</li>
+  <li>Lancer le projet avec un server Angular : ng serve</li>
+
+<br>
+<li><code> --flat=Boolean</code>  : crée les fichiers du composant sans son propre dossier.</li>
+<li><code> --spec=Boolean</code> : permet de créer ou non le fichier de test associé</li>
+    <li><code> --it=Boolean </code> : crée le template html inline, soit directement dans l’attribut template du controller</li>
+      <li><code> --is=Boolean </code> : crée le style de la page html inline, soit directement dans l’attribut styles du controller</li>
+</ul>
+<hr>
+<ul>
+  <!-- Les différents types d'interpolations possible, voir dans newcomp.component.ts pour voir les variables correpondandes à chacunes-->
+  <h4> Les différents types d'interpolations</h4>
+  <li>Une chaine de caractere : {{ maString }}</li>
+  <li>Un number : {{ monNumber }}</li>
+  <li>Un boolean : {{ monBool }}</li>
+  <li>La valeur d'un objet :{{ monObj.val }}</li>
+  <li>La valeur d'un tableau : {{ maTab[0] }}</li>
+  <li>La multiplation directement depuis mon interpolation {{ monNumber * monNumber }}</li>
+  <li>L'éxecution d'une fonction qui retourne quelque chose qui puisse etre stringifié, sinon ca ne marche pas :
+    {{ maFonction('2') }}</li>
+</ul>
+<ul>
+  <!-- Le data-binding des propriété avec des []. Elle est de type (output) donc la logique modifie la vue -->
+  <h4>Le data-binding des propriété</h4>
+  <p>La syntaxe d’une liaison de propriété est cible="expression" ou [cible]="expression". Elle est de type (output)
+    donc la logique modifie la vue.</p>
+  <p>Exemples : </p>
+  <li>Un input date qui est defini directement depuis l'attribut input : <input type="date"></li>
+  <li>Un input date qui contient une variable 'expression' : <input [type]="maDateLogique"></li>
+  <li>Un autre input qui contient une variable 'expression' : <input type="text" [value]="monTexteChange"></li>
+  <hr>
+  <li>Pour bien comprendre le principe, je place l'information que je souhaite faire un binding entre les crochets []
+    <br>et son expression (la variable que je vais récupérer dans la logique) => [cible]="expression" </li>
+  <li><input type="text" [ngStyle]="{width:'350px'}" [placeholder]="monexpression"></li>
+</ul>
+<ul>
+  <!-- Le data-binding des évenement avec des (). Elle est de type (input) donc la logique est qu'un événement utilisation depuis la vue modifie la logique  -->
+  <h4>Le data-binding des évenements</h4>
+  <p>La syntaxe d’une liaison d'évenement (monévenement)="expression". Elle est de type (input)
+    donc la vue modifie la logique.</p>
+  <p>Exemples avec des événements souris (entrée, sortie, et click): </p>
+  <div class="maDivEvenement" [style.backgroundColor]="color" (click)="monEvent('black')"
+    (mouseenter)="monEvent('blue')" (mouseleave)="monEvent('red')">
+  </div>
+
+</ul>
+<ul>
+  <!-- Le data-binding des propriété avec des []. Elle est de type (output) donc la logique modifie la vue -->
+  <h4>Le double data-binding </h4>
+  <p>Les deux parties vont se connecter et se modifier d'un coté comme de l'autre.
+    [(doubledatabinding)].</p>
+  <p>Le double data-binding n'est pas par défaut et pour l'utiliser il faut l'importer (voir app.module.ts > imports >
+    FormsModule).</p>
+  <p>Exemples : </p>
+  <li>Un input de type texte</li>
+  <input type="text" [(ngModel)]="content">
+  <p>{{ content }}</p>
+</ul>
+
+<ul>
+  <!-- Le data-binding des propriété avec des []. Elle est de type (output) donc la logique modifie la vue -->
+  <h4>Les directives </h4>
+  <p>Une directive doit appartenir à un module (NgModule) afin de pouvoir être utilisée par une autre directive, un
+    composant ou une application. <br /> Pour spécifier qu'une directive fait partie d'un NgModule, vous devez la
+    déclarer sur la propriété declarations des métadonnées du NgModule.</p>
+  <p>1) Les directives d’attribut (attribute directive) :
+    Les directives d’attribut modifient le comportement ou l’apparence d’un élément.</p>
+  <p>2) Les directives structurelles (structural directive)
+    Les directives structurelles modifient la structure du DOM, par exemple en ajoutant, supprimant ou manipulant des
+    éléments.
+    <br />Les directives structurelles sont facilement reconnaissables car elles commencent par un astérisque * qui est
+    en fait un raccourci syntaxique pour</p>
+  <p>Des exemples de directives natives de ce type sont ngFor, ngIf et ngSwitch ..</p>
+
+  <li><b>ngIf</b> : *ngIf=”expression”, où l’expression doit retourner un booléen : true ou false. <br /> Elle nous sert
+    à mettre une condition à la présence ou non d'un élément HTML avec un booléan. ngIf est de type structurelles.
+    Exemple : <br /><button (click)="
+      display=!display; 
+      monButtonAff=!monButtonAff;
+      monButtonCac=!monButtonCac;
+      ">
+      <span *ngIf="monButtonAff">Afficher le texte</span>
+      <span *ngIf="monButtonCac">Cacher le texte </span>
+    </button>
+    <p style="font-weight:bold" *ngIf="display">Mon texte</p>
+  </li>
+  <br>
+  <li><b>ngStyle</b> : avec NgStyle vous pouvez définir des styles de manière dynamique, en fonction de l'état du
+    composant, et vous pouvez configurer plusieurs styles simultanément. <br /> Vous pouvez en effet utiliser une simple
+    liaison de propriété si vous avez un seul style à modifier suivant une condition
+    <br />
+  <li>Exemple : <br />
+    <input type="text" placeholder="Entrer une couleur EN" [(ngModel)]="maCouleur">
+    <div [ngStyle]="{
+          width: '100px',
+          height: '100px',
+          backgroundColor: maCouleur
+        }">
+    </div>
+  </li>
+  <br>
+  <li><b>ngClass</b> : Lier des classes à des propriétés permet de gérer les classes de manière dynamique. Pour lier une
+    seule classe, le plus simple est d’utiliser la liaison de classe. <br />Mais pour lier plusieurs classes à des
+    propriétés il faut utiliser ngClass. ngClass permet de contrôler comment les éléments apparaissent en ajoutant et en
+    supprimant des classes CSS de manière dynamique. <br /> Vous pouvez en effet utiliser une simple liaison de
+    propriété si vous avez un seul style à modifier suivant une condition
+    <br />
+  <li>Exemple : <br />
+    <input type="radio" name="radioTest" (click)="colorClass1='red';colorClass2=''">
+    <label>ma class avec un Background Rouge</label>
+    <br>
+    <input type="radio" name="radioTest" (click)="colorClass2='blue';colorClass1=''">
+    <label>ma class avec un Background Bleu</label>
+    <br>
+    <div [ngClass]="{blueSquare: colorClass2, redSquare: colorClass1}">
+    </div>
+  </li>
+  <!-- La directive ngFor -->
+  <br>
+  <li><b>ngFor</b> La directive ngFor itère sur le tableau des items renvoyé par la propriété items du composant et
+    définit item à l'élément actuel du tableau lors de chaque itération.<br /> L’interpolation {{ item }} permet
+    d’accéder à la valeur de l’élément courant. Dans l’exemple précédent la syntaxe let item of items signifie : prendre
+    un item dans le tableau des items, affecter celui-ci dans la variable de
+    boucle locale item et la mettre à disposition du HTML pour chaque itération.</li>
+  <br />
+  <li>Exemple : <br />
+    <br>
+    <ul>
+      <button (click)="maFonctionNgForTrack()">Ajouter un item avec TrackBy</button>
+      <li *ngFor="let itemTrack of itemsTrack; let i=index; trackBy: trackById">
+        itérer sur en selectionnant une clé en particulier : {{i + 1}} - {{itemTrack.name + ' ' + itemTrack.id}}
+      </li>
+    </ul>
+    <ul>
+      <button (click)="maFonctionNgFor()">Ajouter un item sans TrackBy</button>
+      <li *ngFor="let item of items; let i=index;">
+        itérer sur en selectionnant une clé en particulier : {{i + 1}} - {{item.name}}
+      </li>
+    </ul>
+  </li>
+  <!-- Connecter Angular à Node.js -->
+</ul>
+<hr>
+<ul>
+  <li><h4>Variable locale</h4>
+    <p>
+     Une variable de référence est souvent une référence à un élément du DOM contenu dans un template HTML. Il peut également faire référence à un composant Angular ou à une directive. Il sert à récupérer les infomations du templates par exemple d'un input.
+      <br />
+      La syntaxe est très simple, il suffit d’ajouter un dièse avant la variable : <b>#variable</b>
+    </p>
+  </li>
+  <li>Exemple :
+    <form>
+    <input type="text" placeholder="Taper du texte" #f> 
+    <button (click)="addFruit(f)">Voir mon résultat</button>
+   <span *ngIf="monMessageErreur" style="color: red;"> {{ monMessageErreur }} </span>
+  </form>
+      <div *ngIf="maRefLoc"><p><li *ngFor="let maRefLocVar of maRefLoc; let i=index;">
+          Ma value {{ i + 1 }} : <br /> {{ maRefLocVar }}
+        </li></p></div>
+</ul>
+<hr>
+
+<!-- // -->
+<ul>
+    <li><h4>ViewChild</h4>
+      <p>
+        Nous pouvons accéder à toutes les infos balises html de notre input grace à notre ViewChild. Ceci est une seconde façon de récupérer les informations du dom (comme avec les variable locales). Pour ce faire d'abord nous devons importer un décorateur ViewChild mais aussi ElementRef.
+        <br />
+        L’approche par la variable de référence locale est simple d’utilisation, mais elle atteint parfois ses limites. En conséquence, avec cette méthode, la classe  du composant parent n’a pas accès elle-même au composant enfant <b>#variable</b>
+      </p>
+    </li>
+    <li>Exemple :
+      <form>
+      <input type="text" placeholder="Taper du texte" #g> 
+      <button (click)="addFruitViewChild()">Voir mon résultat</button>
+     <span *ngIf="monMessageErreur" style="color: red;"> {{ monMessageErreur }} </span>
+    </form>
+        <div *ngIf="maRefLocViewChild"><p><li *ngFor="let maRefLocVarViewChild of maRefLocViewChild; let i=index;">
+            Ma value {{ i + 1 }} : <br /> {{ maRefLocVarViewChild }}
+          </li></p></div>
+  </ul>
+  <hr>
+<!-- // -->
+<ul>
+  <li><h4>Les Directives</h4>
+    <p>Création de ma directive avec ng cli, ne pas oublier de déclarer ma directive dans mon module et dans la déclaration de mon module.</p> 
+    <p>
+      Petits rappels sur les directives <br>
+      Il existe trois types de directive : <strong>les composants,</strong><strong>les directives d’attribut,</strong> et les <strong>directives structurelles</strong>.
+      <br /></p>
+      <p>Par exemple :</p>
+      <ol>
+
+      <li><code><span>&lt;p appDrtv&gt; Test couleur de ma directive &lt;/p&gt;</span></code><br>
+      <span> Ici appDrtv correspond à mon selector qui se trouve dans ma directive. <br>
+      Nous l'utilisons avec un décorateur (hostbinding) et l'assignons à une valeur qui est obligatoire <code>@HostBinding('style.color') colorText = "black"</code> puis aprés nous pouvons le modifier.
+      </span>
+    </li>
+<br>
+    <li><code><span>&lt;appDrtv [monInput]="&#123;text: 'blue', backgroundCol: 'red'&#125;"&gt; Test couleur de ma directive &lt;/p&gt;</span></code><br>
+      <span> Ici appDrtv correspond à mon selector qui se trouve dans ma directive. <br>
+      Nous l'utilisons avec un décorateur (hostbinding) et l'assignons à une valeur qui est obligatoire <code>@HostBinding('style.color') colorText = "black"</code> puis aprés nous pouvons le modifier, nous réasignons la valeur iniatile "black" à blue directement depuis notre attribut [monInput] qui correspond à mon décorateur <code>@Input</code> que j'ai importer dans ma directive <code>@Input('monInput') data;</code>. Nous lui assignons un objet comme valeur et modifions la valeur dans la directive avec mon ngOnInit <code>if (this.data) 	&#123;
+          console.log(this.data);
+          this.backgroundColor = this.data.backgroundCol
+          this.colorText = this.data.text
+          &#125; </code>.
+      </span>
+    </li>
+    <br>
+    <li><code><span>&lt;appDrtv [monInput]="&#123;text: 'yellow', clickBackground: 'black', mouseOutBackground: 'grey'&#125;"&gt; Test couleur de ma directive &lt;/p&gt;</span></code><br>
+      <span> Ici appDrtv correspond à mon selector qui se trouve dans ma directive. <br>
+      Nous l'utilisons avec un décorateur (hostbinding) et l'assignons à une valeur qui est obligatoire <code>@HostBinding('style.color') colorText = "black"</code> puis aprés nous pouvons le modifier, nous réasignons la valeur iniatile "black" à yellow directement depuis notre attribut [monInput] qui correspond à mon décorateur <code>@Input</code> que j'ai importer dans ma directive <code>@Input('monInput') data;</code>. Nous lui assignons un objet comme valeur et modifions la valeur dans la directive avec mon ngOnInit <code>if (this.data) 	&#123;
+          this.colorText = this.data.text
+          &#125; </code>. A cela nous ajoutons un évenement avec le décorateurs évenements <code>@HostListener</code>.  <br><br><code>@HostListener('click') click()&#123;
+              if (this.data && this.data.clickBackground) &#123;
+              this.backgroundColor = this.data.clickBackground
+                &#125;
+              &#125;</code><br><br>
+              <code>@HostListener('mouseout') mouseout()&#123;
+                  if (this.data && this.data.mouseOutBackground) &#123;
+                  this.backgroundColor = this.data.mouseOutBackground;
+                   &#125;
+                   &#125;</code>
+      </span>
+    </li>
+    </ol>
+      <br>
+      <b>Les exemples</b>
+    
+  </li>
+  <li>Exemple :
+    <span>1</span><p appDrtv> Test couleur de ma directive</p></li>
+  <li>Exemple :
+    <span>2</span><p appDrtv [monInput]="{text: 'blue', backgroundCol: 'red'}"> Test de ma directive + Input avec déclaration directement dans ma balise html</p> <p appDrtv [monInput]="{text: 'blue', backgroundCol: 'yellow'}">Test avec un second background malgré que les deux propriété ont le meme nom</p> </li>
+    <li>Exemple :
+      <span>3</span><p appDrtv [monInput]="{text: 'yellow', clickBackground: 'black', mouseOutBackground: 'grey'}"> Test clic de ma directive + Input avec déclaration directement dans ma balise html + Evenement Click et MouseOut</p></li>
+</ul>
+<hr>
+ <!-- // -->
+ <ul>
+    <li><h4>Les service</h4></li>
+<p>Selon la définition de l’équipe d’Angular : un service est une notion très large recouvrant toute valeur, fonction ou fonctionnalité dont votre
+application a besoin.</p>
+<p>Un service peut être par exemple :</p>
+<ol>
+<li>un service de connexion utilisateur</li>
+<li>un service pour les données de l’application</li>
+<li>un service de configuration de l'application</li>
+<li>un service qui log des messages dans la console</li>
+</ol>
+<br>
+<p>En résumé, il n’y a absolument rien de spécifique à un service Angular. Il n’y a pas de définition restrictive de ce que devrait ou ne devrait pas
+être un service.</p>
+<p>Il n’y a pas de décorateur ou de classe service spécifique à Angular, il n’y a pas non plus d’endroit spécifique pour déclarer un service.</p>
+<p>Cependant il y a un ensemble de bonnes pratiques à connaître pour bâtir une application et l’une d’entre elle est que les composants doivent
+être légers.</p>
+<p>Il ne faut pas que le composant récupère des données du serveur, ou qu’il valide des données etc.</p>
+<p>En Angular un bon composant est un intermédiaire entre la logique de l’application et la vue (qui est rendue par le template). Il doit déléguer
+toute la logique qui n’est pas triviale aux services et se contenter d’utiliser tous les services dont il a besoin pour fonctionner.</p>
+<br>
+<h5><li> 1) Communiquer entre deux components et un service, afficher le tout sur un component parent.</li></h5> <br>
+<app-moncomponent1></app-moncomponent1>
+<p>Mes résultats  : <app-moncomponent2></app-moncomponent2></p>
+<br>
+<li>
+  Ici le service communique avec deux components enfants et affiche le resultats des deux components enfant sur le component parent.
+</li>
+</ul>
+<ul>
+  <li>Les VUE de mes components</li>
+<ol>
+  <li>Le code de ma vue component PARENT : <code><br>&#60;app-moncomponent1&#62;&#60;/app-moncomponent1&#62;
+     <br> &#60;p&#62;Mes résultats  : &#60;app-moncomponent2&#62;&#60;/app-moncomponent2&#62;&#60;/p&#62;</code></li>
+  <li>Le code de ma vue component ENFANT 1 (Input et Bouton) :
+  <code>
+   <br> &#60;H5&#62;Ajouter un element&#60;/H5&#62;
+   <br> &#60;input type="text" [(ngModel)]="aliment"&#62;
+   <br> &#60;button (click)="add()">Ajouter&#60;/button&#62;
+  </code>
+  </li>
+  <li>Le code de ma vue component ENFANT 2 (Résultat) : 
+  <code>
+     <br> &#60;li *ngFor="let panieraco of panier; let index = index"&#62; <br> &#123;&#123;panieraco&#125; &#125;  &#60;button (click)="removeAliment(index)"&#62;Delete&#60;/button>&#60;/li&#62;
+  </code>
+  </li>
+</ol>
+</ul>
+<ul>
+ <li>Les LOGIQUES de mes components et services</li> 
+
+<ol>
+  <li>La logique de mon component PARENT : RIEN</li>
+  <li>La logique de mon component ENFANT 1 (Input et bouton) :
+    <code>
+      <br>constructor(private MonexempleService: MonserviceexempleService) &#123; &#125;
+<br> add():void &#123;
+<br> this.MonexempleService.add(this.aliment);
+<br> this.aliment = ''; &#125;
+    </code> </li>
+  <li>La logique de mon component ENFANT 2 (Résultat) : 
+    <code>
+      <br> public panier: string[] = []
+       <br> constructor(private MonexempleService: MonserviceexempleService) &#123; &#125;
+      <br>
+        ngOnInit() &#123; this.panier = this.MonexempleService.panier &#125;
+      <br> removeAliment(index: number) &#123;
+      <br> this.MonexempleService.remove(index) &#125;
+    </code>
+  </li>
+  <li>La logique de mon SERVICE : 
+    <code>
+        <br>public panier: string[] = [];
+        <br>constructor() &#123; &#125;
+        <br>add(aliment: string):any &#123;
+          this.panier.push(aliment)
+          &#125;
+        <br>remove(index: number) &#123;
+          this.panier.splice(index, 1)
+          &#125;
+    </code>
+  </li>
+</ol>
+</ul>
+
+<br>
+<ul>
+<h5><li> 2) Communiqué directement depuis un service avec une méthode.</li></h5> 
+<strong> <p (click)="testMethodeService()" style="cursor: pointer"> >>Cliquez-ici</p></strong>
+<div *ngIf="testservice01">{{testservice01}}</div>
+<li>Ici le service communique directement depuis le component principal. Nous avons un évenement click avec une méthode disponible directement depuis mon component.</li>
+</ul>
+<ol>
+  <li>Le code de ma vue : <br><code>&#60;p (click)="testMethodeService()" style="cursor: pointer"	&#62;&#60;/p&#62;<br>
+    &#60;div *ngIf="testservice01"&#62; &#123; &#123; testservice01 &#125; &#125; &#60;/div&#62;
+  </code></li>
+  <li>Le code de mon component principal : <br><code>constructor(private MonexempleService: MonserviceexempleService) &#123;&#125;<br>public testservice01: string = '';
+      <br>testMethodeService():void &#123;
+      <br>this.testservice01 = this.MonexempleService.test3()
+        <br>&#125;</code></li>
+        <li>Le code dans mon service : <code>  
+          <br>public test2: string = '';
+          <br>test3():string &#123;
+          <br>this.test2 = 'Ca marche';
+          <br>return this.test2
+          <br> &#125;</code></li>
+        </ol>
+ <hr>
+<ul>
+  <li><h4>Connecter Angular à Node.js</h4>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt perferendis voluptatibus neque magnam sit
+      quaerat odio vitae iure veniam laborum fugit, quia quod, laboriosam recusandae quidem ipsam quasi illum molestiae.
+      <br />
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt perferendis voluptatibus neque magnam sit
+      quaerat odio vitae iure veniam laborum fugit, quia quod, laboriosam recusandae quidem ipsam quasi illum molestiae.
+    </p>
+  </li>
+  <br />
+  <li>Exemple : <br />
+    <button (click)="monTest()">Cliquer-ici pour accéder à la data</button>
+    <p>La data qui se trouve dans le json sur Node.js s'affichera ici et dans la console. </p>
+    <p>Ma data : <span *ngIf="users">{{ users.user }}</span></p>
+</ul>
+<hr>
